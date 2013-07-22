@@ -1,10 +1,15 @@
 package it.mondogrua.p2p.encapsulate_composite_with_builder;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class TagNode {
 
     private final String name;
     private String value = "";
     private StringBuffer attributes;
+    private List<TagNode> children;
 
     public TagNode(String name) {
         this.name = name;
@@ -26,14 +31,28 @@ public class TagNode {
         attributes.append(value);
         attributes.append("'");
     }
+    
+    public void add(TagNode child) {
+        children().add(child);
+    }
 
     @Override
     public String toString() {
         StringBuffer result = new StringBuffer();
         result.append("<").append(name).append(attributes).append(">");
+        for (TagNode node : children()) {
+            result.append(node.toString());
+        }
         result.append(value);
         result.append("</").append(name).append(">");
         return result.toString();
+    }
+
+    private List<TagNode> children() {
+        if (this.children == null) {
+            this.children = new ArrayList<TagNode>();
+        }
+        return this.children;
     }
 
 }
