@@ -10,6 +10,7 @@ public class TagNode {
     private String value = "";
     private StringBuffer attributes;
     private List<TagNode> children;
+    private TagNode parent;
 
     public TagNode(String name) {
         this.name = name;
@@ -33,7 +34,16 @@ public class TagNode {
     }
     
     public void add(TagNode child) {
+        child.setParent(this);
         children().add(child);
+    }
+
+    private void setParent(TagNode parent) {
+        this.parent = parent;
+    }
+
+    public TagNode getParent() {
+        return this.parent;
     }
 
     @Override
